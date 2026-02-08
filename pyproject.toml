@@ -1,18 +1,16 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
-name = "invres_steganalysis"
-description = "To Be Described"
-readme = "README.md"
-version = "0.0.1"
+name = "steganalysis"
+dynamic = ["version"]
 dependencies = [
 	"lightning",
+	"Pillow",
 	"torchvision",
 	"scikit-learn"
 ]
-requires-python = ">= 3.11"
 
-[project.scripts]
-invres = "invres_steganalysis:main_cli"
+[tool.hatch.version]
+path = "src/steganalysis/__init__.py"
