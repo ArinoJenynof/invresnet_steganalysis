@@ -4,13 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "steganalysis"
-dynamic = ["version"]
+version = "0.0.1"
 dependencies = [
 	"lightning",
 	"Pillow",
 	"torchvision",
 	"scikit-learn"
 ]
-
-[tool.hatch.version]
-path = "src/steganalysis/__init__.py"
