@@ -1,3 +1,8 @@
+> [!CAUTION]
+> `parallel` package currently cannot be built using Octave 11.3.0, latest as of this writing.
+> 
+> Use older Octave, maybe around Octave 8.x as that is probably the version that I used to write this dataset generation script
+
 # Steganalysis Dataset Generation Scripts
 What I used, and did, to generate steganographic images. Images are sourced from BOWS2 which can be found [here](https://web.archive.org/web/20130510185330/http://bows2.ec-lille.fr/BOWS2OrigEp3.tgz), and BossBase which can be found [here](https://dde.binghamton.edu/download/ImageDB/BOSSbase_1.01.zip).
 
