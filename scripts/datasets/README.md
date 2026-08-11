@@ -34,13 +34,14 @@ exit;
 ```
 Now run with GNU Parallel to speed things up:
 ```bash
-parallel -j 2 -k octave embed.m <steganograhy method> {} <payload> ::: <list of images cover>
+parallel -j 2 -k octave embed.m ${steganography_method} {} ${payload} ::: ${images_cover}
 ```
 
 #### Some explanations
-1. `<steganography method>` is currently `S_UNIWARD` or `WOW`. More may be added in the future.
-2. `<payload>` is floating point number, in bits per pixel. Bigger payload == bigger distortion.
-3. `<list of images cover>` is just images path you want to embed. Put `images_cover/*` to mimic the structure of the original code from DDE.
+1. `${steganography method}` is currently `S_UNIWARD` or `WOW`. More may be added in the future.
+2. `${payload}` is floating point number, in bits per pixel. Bigger payload == bigger distortion.
+3. `${list of images cover}` is just images path you want to embed. Put `images_cover/*` to mimic the structure of the original code from DDE.
+4. Change `-j ${num_cores}` to use more or less cores.
 
 ## Historical Notes
 I had some difficulties running Aletheia due to [subprocess.Popen(..., shell=True)](https://github.com/daniellerch/aletheia/blob/71805e7419936dedb8df07b98ff117a30ee654ed/aletheialib/octave_interface.py#L119) doesn't play nicely on Windows. It returns immediately, not waiting for the .mat files to finished processing.
