@@ -19,4 +19,4 @@ license = "MIT"
 license-files = [ "LICENCE" ]
 
 [project.urls]
-source = "https://github.com/ArinoJenynof/invres_steganalysis.git"
+source = "https://github.com/ArinoJenynof/invresnet_steganalysis.git"
