@@ -1,9 +1,12 @@
 [build-system]
-requires = ["hatchling"]
+requires = [ "hatchling" ]
 build-backend = "hatchling.build"
 
 [project]
-name = "steganalysis"
+name = "invresnet_steganalysis"
+description = "Training and prediction script for InvResNet steganalysis neural network"
+readme = "README.md"
+authors = [{ name = "Arino Jenynof" }]
 version = "0.0.1"
 dependencies = [
 	"lightning",
@@ -11,3 +14,9 @@ dependencies = [
 	"torchvision",
 	"scikit-learn"
 ]
+requires-python = ">=3.15"
+license = "MIT"
+license-files = [ "LICENCE" ]
+
+[project.urls]
+source = "https://github.com/ArinoJenynof/invres_steganalysis.git"
