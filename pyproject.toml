@@ -10,8 +10,9 @@ authors = [{ name = "Arino Jenynof" }]
 version = "0.0.1"
 dependencies = [
 	"lightning",
+	"torch == 2.14.1", 
 	"Pillow",
-	"torchvision",
+	"torchvision == 0.29.1",
 	"scikit-learn"
 ]
 requires-python = ">=3.15"
