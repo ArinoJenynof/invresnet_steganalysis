@@ -1,6 +1,10 @@
 import argparse
 import pathlib
 lazy import lightning, lightning.pytorch.loggers, lightning.pytorch.callbacks
+lazy import PIL.Image
+lazy import torch
+lazy import torchvision.transforms.v2
+lazy import torchvision.tv_tensors
 
 lazy from .models import LitInvResNet
 lazy from .datasets import SteganalysisDataModuleParam, SteganalysisDataModule
@@ -42,16 +46,14 @@ def main() -> int:
 
 	predict = subparser.add_parser("predict", help="run prediction on an image file")
 	predict.add_argument("image_file", help="image file to predict")
-	predict.add_argument("model_path", help="path to model weights")
+	predict.add_argument("model_path", help="path to trained model weights")
 	predict.set_defaults(func=_predict_fn)
 
 	args = parser.parse_args()
-	args.func(args)
-	return 0
+	return args.func(args)
 
 
 def _train_fn(args) -> int:
-	print(args)
 	ds_params = SteganalysisDataModuleParam(
 		args.steganalysis_method, args.steganalysis_payload.replace(".", ","),
 		args.downscaling_method, args.pair_count, args.cacheable
@@ -82,4 +84,22 @@ def _train_fn(args) -> int:
 
 
 def _predict_fn(args) -> int:
-	raise NotImplementedError("Not yet snake")
+	img = PIL.Image.open(args.image_file)
+	tfx = torchvision.transforms.v2.Compose([
+		torchvision.transforms.v2.ToImage(),
+		torchvision.transforms.v2.ToDtype(dtype=torch.float)
+	])
+
+	model = LitInvResNet.load_from_checkpoint(args.model_path, weights_only=False)
+	model.eval()
+
+	with torch.no_grad():
+		img_in = torch.unsqueeze(tfx(img), 0).to(device=model.device)
+		pred = model(img_in)
+
+		logits = pred.item()
+		prob = torch.nn.functional.sigmoid(pred).item()
+		print(f"logits      = {logits:.6f}")
+		print(f"probability = {prob * 100:.6f}% of being stego image")
+	
+	return 0
