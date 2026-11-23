@@ -7,17 +7,17 @@ name = "invresnet_steganalysis"
 description = "Training and prediction script for InvResNet steganalysis neural network"
 readme = "README.md"
 authors = [{ name = "Arino Jenynof" }]
-version = "0.0.1"
+version = "1.0.0"
 dependencies = [
 	"lightning",
-	"torch == 2.14.1", 
+	"torch == 2.14.1",
 	"Pillow",
 	"torchvision == 0.29.1",
 	"scikit-learn"
 ]
 requires-python = ">=3.15"
-license = "MIT"
-license-files = [ "LICENCE" ]
+license = "Unlicense"
+license-files = [ "UNLICENSE" ]
 
 [project.urls]
 source = "https://github.com/ArinoJenynof/invresnet_steganalysis.git"
