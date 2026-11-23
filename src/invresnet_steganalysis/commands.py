@@ -4,7 +4,6 @@ lazy import lightning, lightning.pytorch.loggers, lightning.pytorch.callbacks
 lazy import PIL.Image
 lazy import torch
 lazy import torchvision.transforms.v2
-lazy import torchvision.tv_tensors
 
 lazy from .models import LitInvResNet
 lazy from .datasets import SteganalysisDataModuleParam, SteganalysisDataModule
@@ -46,7 +45,7 @@ def main() -> int:
 
 	predict = subparser.add_parser("predict", help="run prediction on an image file")
 	predict.add_argument("image_file", help="image file to predict")
-	predict.add_argument("model_path", help="path to trained model weights")
+	predict.add_argument("model_path", help="state_dict (.cpkt or .pt) from training")
 	predict.set_defaults(func=_predict_fn)
 
 	args = parser.parse_args()
@@ -90,7 +89,7 @@ def _predict_fn(args) -> int:
 		torchvision.transforms.v2.ToDtype(dtype=torch.float)
 	])
 
-	model = LitInvResNet.load_from_checkpoint(args.model_path, weights_only=False)
+	model = LitInvResNet.load_from_checkpoint(args.model_path)
 	model.eval()
 
 	with torch.no_grad():
